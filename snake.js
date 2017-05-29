@@ -1,5 +1,5 @@
 var m = 10; //nbRows
-var n = 10; //nbColumns
+var n = 15; //nbColumns
 
 var scale= 10;
 var zone = document.getElementById("zone");
@@ -19,10 +19,10 @@ var apple = [0,0];
 
 function initializeTab()
 {	
-	path.push([0,3]);
-	path.push([0,4]);
-	path.push([0,5]);
-	path.push([0,6]);
+	path.push([3,3]);
+	path.push([3,4]);
+	path.push([3,5]);
+	path.push([3,6]);
 		
 	for(var i=0; i<m; i++)
 	{
@@ -62,14 +62,14 @@ function generateNewApple()
 	apple[1] = b;
 }
 
-
 initializeTab();
 
 function draw()
 {
 	context.clearRect(0, 0, n*scale, m*scale);
 	
-	for(var p=0; p<path.length; p++)
+	drawRectangle(path[0], "blue");
+	for(var p=1; p<path.length; p++)
 		drawRectangle(path[p], "black");
 
 	drawRectangle(apple,"red");
@@ -94,29 +94,36 @@ function nextStep()
 	switch(direction)
 	{
 		case "up":
-			first[0] = (first[0]-1+n)%n;
+			first[0] = (first[0]-1+m)%m;
 			break;	
 		case "down":
-			first[0] = (first[0]+1+n)%n;
+			first[0] = (first[0]+1+m)%m;
 			break;
 		case "left":
-			first[1] = (first[1]-1+n)%m;
+			first[1] = (first[1]-1+n)%n;
 			break;
 		case "right":
 			first[1] = (first[1]+1+n)%n;
 	}
 	
-	tab[first[0]][first[1]] = true;
 	if(first[0] == apple[0] && first[1] == apple[1])
 	{
 		generateNewApple();
-		console.log("coucou");
 	}
 	else
 	{
 		tab[last[0]][last[1]] = false;
 		path.pop();
 	}
+	
+	if(tab[first[0]][first[1]])
+	{
+		clearInterval(id);
+		console.log("perdu");
+		return;
+	}
+	
+	tab[first[0]][first[1]] = true;
 	path.unshift(first);
 	
 }
@@ -138,7 +145,7 @@ document.addEventListener("keydown", function(e)
 			
 		if(play)
 		{
-			id = setInterval(nextStepDraw, 500); //200
+			id = setInterval(nextStepDraw, 200); 
 		}
 		else
 		{
