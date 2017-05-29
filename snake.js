@@ -17,8 +17,9 @@ var path = [];
 function initializeTab()
 {	
 	path.push([3,3]);
-	path.push([4,3]);
-	path.push([5,3]);
+	path.push([3,4]);
+	path.push([3,5]);
+	path.push([3,6]);
 		
 	for(var i=0; i<m; i++)
 	{
@@ -29,7 +30,7 @@ function initializeTab()
 	}
 	
 	for(var p=0; p<path.length; p++)
-		tab[ path[p][1] ][ path[p][0] ] = true;
+		tab[ path[p][0] ][ path[p][1] ] = true;
 	
 	draw();
 }
@@ -39,14 +40,16 @@ initializeTab();
 function draw()
 {
 	context.clearRect(0, 0, n*scale, m*scale);
-	//for(var p=0; p<path.length; p++)
-	//	drawRectangle(path[p], "black");
+	for(var p=0; p<path.length; p++)
+		drawRectangle(path[p], "black");
+	/*
 	for(var i=0 ; i<m ; i++)
 		for(var j=0 ; j<n ;j++)
 			if(tab[i][j])
 			{
 				drawRectangle([i,j],"black");
 			}
+			*/
 }
 
 function nextStep()
