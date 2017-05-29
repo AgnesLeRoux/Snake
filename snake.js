@@ -1,5 +1,5 @@
-var m = 60; //nbRows
-var n = 60; //nbColumns
+var m = 10; //nbRows
+var n = 10; //nbColumns
 
 var scale= 10;
 var zone = document.getElementById("zone");
@@ -13,6 +13,9 @@ var direction = "left"; //up, down, right, left
 var tab = [];
 var play = false;
 var path = [];
+var apple = [0,0]; 
+
+
 
 function initializeTab()
 {	
@@ -32,16 +35,44 @@ function initializeTab()
 	for(var p=0; p<path.length; p++)
 		tab[ path[p][0] ][ path[p][1] ] = true;
 	
+	generateNewApple();
+
 	draw();
 }
+
+function generateNewApple()
+{
+	var idSquare = Math.floor(Math.random()*(m*n - path.length));
+
+	var cpt = 0;
+	var a;
+	var b;
+	label: 
+	for(a=0 ; a < m ; a++)
+		for(b=0 ; b < n ;b++)
+		{
+			if(cpt >= idSquare)
+			{
+				break label;
+			}
+			if(tab[a][b] == false)
+				cpt++;
+		}
+	apple[0] = a;
+	apple[1] = b;
+}
+
 
 initializeTab();
 
 function draw()
 {
 	context.clearRect(0, 0, n*scale, m*scale);
+	drawRectangle(apple,"red");
 	for(var p=0; p<path.length; p++)
 		drawRectangle(path[p], "black");
+
+	
 	/*
 	for(var i=0 ; i<m ; i++)
 		for(var j=0 ; j<n ;j++)
@@ -59,8 +90,7 @@ function nextStep()
 	var a = path[path.length -1][0];
 	var b = path[path.length -1][1];
 	var last = [a,b];
-		
-	tab[last[0]][last[1]] = false;
+	
 	switch(direction)
 	{
 		case "up":
@@ -75,9 +105,20 @@ function nextStep()
 		case "right":
 			first[1] = (first[1]+1+n)%n;
 	}
+	
 	tab[first[0]][first[1]] = true;
+	if(first[0] == apple[0] && first[1] == apple[1])
+	{
+		generateNewApple();
+		console.log("coucou");
+	}
+	else
+	{
+		tab[last[0]][last[1]] = false;
+		path.pop();
+	}
 	path.unshift(first);
-	path.pop();
+	
 }
 
 function nextStepDraw()
@@ -97,7 +138,7 @@ document.addEventListener("keydown", function(e)
 			
 		if(play)
 		{
-			id = setInterval(nextStepDraw, 200);
+			id = setInterval(nextStepDraw, 500); //200
 		}
 		else
 		{
