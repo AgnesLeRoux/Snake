@@ -19,10 +19,10 @@ var apple = [0,0];
 
 function initializeTab()
 {	
-	path.push([3,3]);
-	path.push([3,4]);
-	path.push([3,5]);
-	path.push([3,6]);
+	path.push([0,3]);
+	path.push([0,4]);
+	path.push([0,5]);
+	path.push([0,6]);
 		
 	for(var i=0; i<m; i++)
 	{
@@ -43,7 +43,6 @@ function initializeTab()
 function generateNewApple()
 {
 	var idSquare = Math.floor(Math.random()*(m*n - path.length));
-
 	var cpt = 0;
 	var a;
 	var b;
@@ -51,13 +50,14 @@ function generateNewApple()
 	for(a=0 ; a < m ; a++)
 		for(b=0 ; b < n ;b++)
 		{
-			if(cpt >= idSquare)
+			if(cpt >= idSquare && !tab[a][b])
 			{
 				break label;
 			}
-			if(tab[a][b] == false)
+			if(!tab[a][b])
 				cpt++;
 		}
+	
 	apple[0] = a;
 	apple[1] = b;
 }
@@ -68,11 +68,11 @@ initializeTab();
 function draw()
 {
 	context.clearRect(0, 0, n*scale, m*scale);
-	drawRectangle(apple,"red");
+	
 	for(var p=0; p<path.length; p++)
 		drawRectangle(path[p], "black");
 
-	
+	drawRectangle(apple,"red");
 	/*
 	for(var i=0 ; i<m ; i++)
 		for(var j=0 ; j<n ;j++)
