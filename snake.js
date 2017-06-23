@@ -1,5 +1,5 @@
-var m = 10; //nbRows
-var n = 15; //nbColumns
+var m = 35; //nbRows
+var n = 45; //nbColumns
 
 var scale= 10;
 var zone = document.getElementById("zone");
@@ -70,7 +70,7 @@ function draw()
 	
 	drawRectangle(path[0], "blue");
 	for(var p=1; p<path.length; p++)
-		drawRectangle(path[p], "black");
+		drawRectangle(path[p], "green");
 
 	drawRectangle(apple,"red");
 	/*
