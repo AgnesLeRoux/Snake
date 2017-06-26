@@ -4,6 +4,8 @@
 	background-color: greenyellow;
 	display:block;
 	margin:auto;
+	margin-top: 62px;
+	
 
 }
 body
@@ -22,4 +24,15 @@ height : 98vh;
 div
 {
 text-align: center;
+}
+#cadre
+{
+	border: 1px solid transparent;
+		margin:auto;
+background-image: url("./3310.png");
+background-repeat:no-repeat;
+    background-position: center; 
+
+width: 250px;
+height : 260px;
 }

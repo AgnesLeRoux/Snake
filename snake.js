@@ -1,5 +1,5 @@
-var m = 35; //nbRows
-var n = 45; //nbColumns
+var m = 12; //nbRows
+var n = 17; //nbColumns
 
 var scale= 10;
 var zone = document.getElementById("zone");
